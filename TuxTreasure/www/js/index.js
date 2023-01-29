@@ -10,6 +10,7 @@ function onDeviceReady() {
             "tagNames": ["Groceries", "Petrol", "Gym"]
         });
     } else {
+        //do not remove or else very much broken
         deleteFromLocalStorage("debug");
     }
 
@@ -23,12 +24,15 @@ function onDeviceReady() {
     }
 
 }
-
+//----------------------------listeners----------------------------
 
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('add-tag').addEventListener('click', addTagToDB);
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('log-expenditure').addEventListener('click', addExpenditure);
+});
 //--------------------------building page util functions-------------------------------
 function insertOptions(stringsArray) {
     var select = document.getElementById("tag");
@@ -128,7 +132,25 @@ function addTagToDB() {
         alert('Your tag was added !');
         insertOptions(getAllTagDepenseValues());
         tagNameElement.value = "";
+    }
+}
 
+function addExpenditure() {
+    let selectElement = document.getElementById("tag");
+    let selectElementValue = selectElement.options[selectElement.selectedIndex].value;
+    let montant = document.getElementById("amount").value;
+    if (montant == "") {
+        alert("please enter the amount of money you spent !")
+    } else {
+        let depenseObject = {
+            "type": "depense",
+            "value": montant,
+            "tag": selectElementValue
+        };
+
+        storeObjectInLocalStorage(incrementLocalStorageKey, depenseObject);
+        document.getElementById("amount").value = "";
+        alert("Successfully logged expenditure !")
     }
 
 }
