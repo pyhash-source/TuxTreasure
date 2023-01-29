@@ -21,6 +21,9 @@ function onDeviceReady() {
     if (pageName == "logExpenditure.html") {
         //adding the different elements in the select options
         insertOptions(getAllTagDepenseValues());
+    } else if (pageName == 'analysis.html') {
+        displayAllDepenses();
+        printLocalStorageKeys();
     }
 
 }
@@ -100,7 +103,8 @@ function incrementLocalStorageKey() {
                 highestKey = keyAsNumber;
             }
         }
-
+        alert("the increment local storage now returned: ");
+        alert(String(highestKey + 1));
         return String(highestKey + 1);
     }
 }
@@ -148,9 +152,38 @@ function addExpenditure() {
             "tag": selectElementValue
         };
 
-        storeObjectInLocalStorage(incrementLocalStorageKey, depenseObject);
+        storeObjectInLocalStorage(incrementLocalStorageKey(), depenseObject);
         document.getElementById("amount").value = "";
         alert("Successfully logged expenditure !")
     }
 
+}
+
+function retrieveAllDepenses() {
+    let depenses = [];
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        let value = JSON.parse(localStorage.getItem(key));
+        if (value.type === "depense") {
+            let depense = {
+                value: value.value,
+                tag: value.tag
+            };
+            depenses.push(depense);
+        }
+    }
+    return depenses;
+}
+
+function displayAllDepenses() {
+    let depenses = retrieveAllDepenses();
+    let depensesContainer = document.getElementById("expense-list");
+    depensesContainer.innerHTML = "";
+
+    for (let i = 0; i < depenses.length; i++) {
+        let depense = depenses[i];
+        let depenseElement = document.createElement("p");
+        depenseElement.innerHTML = "Value: " + depense.value + " | Tag: " + depense.tag;
+        depensesContainer.appendChild(depenseElement);
+    }
 }
