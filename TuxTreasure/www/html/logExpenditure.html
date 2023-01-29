@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <link rel="stylesheet" href="../css/index.css">
+    <title>Hello World</title>
+</head>
+
+<body>
+    <div class="app">
+        <div id="deviceready" class="blink">
+            <div class="content">
+                <div class="form-container">
+                    <h1 class="form-title">Expenditure Form</h1>
+                    <form>
+                        <table>
+                            <tr>
+                                <td class="label-cell"><label for="amount">Amount spent:</label></td>
+                                <td class="input-cell"><input type="number" id="amount" name="amount"></td>
+                            </tr>
+                            <tr>
+                                <td class="label-cell"><label for="tag">What for:</label></td>
+                                <td class="input-cell">
+                                    <select id="tag" name="tag">
+                                
+                                </select>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="button-container">
+                            <button type="submit" class="submit-button">Submit</button>
+                        </div>
+                    </form>
+                </div><br><br>
+
+                <div class="form-container">
+                    <table>
+                        <tr>
+                            <td class="input-cell"><input type="text" id="tagNamet" placeholder="Add tag. eg. Petrol"></td>
+                            <td class="label-cell"><button class="submit-button" id="debug">debug</button></td>
+
+                        </tr>
+                    </table>
+                    <div class="button-container">
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="navbar">
+                    <a href="logExpenditure.html">$ out</a>
+                    <a href="#">Analysis!</a>
+                    <a href="#">$ In</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../cordova.js"></script>
+    <script src="../js/index.js"></script>
+</body>
+
+</html>

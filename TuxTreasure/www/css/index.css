@@ -1,0 +1,164 @@
+:root {
+    --primary-color: #333;
+    /* dark gray */
+    --secondary-color: rgb(137, 137, 137);
+    /* medium gray */
+    --accent-color: #007aff;
+    --tertiary-color: #404040;
+    /* blue */
+}
+
+body {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    margin: 0;
+    padding: 0;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.navbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 3vh;
+}
+
+.navbar a {
+    color: white;
+    padding: 8px 16px;
+    /* add some padding to the links */
+    text-decoration: none;
+    /* remove the underline */
+    font-weight: bold;
+    /* make the text bold */
+    border-radius: 4px;
+    /* add rounded corners */
+    background-color: var(--accent-color);
+    /* change the background color to the accent color */
+    transition: background-color 0.2s ease-in;
+    /* add a transition for the background color */
+}
+
+.container {
+    display: flex;
+    /* make the container a flex container */
+    align-items: center;
+    /* center the items horizontally */
+    justify-content: center;
+    /* center the items vertically */
+    flex-wrap: wrap;
+    /* allow items to wrap */
+    height: 80vh;
+    /* set a height for the container */
+}
+
+.container {
+    display: flex;
+    /* make the container a flex container */
+    align-items: center;
+    /* center the items horizontally */
+    justify-content: center;
+    /* center the items vertically */
+    flex-wrap: wrap;
+    /* allow items to wrap */
+    height: 80vh;
+    /* set a height for the container */
+    flex-direction: column;
+    /* put the title and text under the image */
+}
+
+.center-image {
+    max-width: 80%;
+    /* set a max width for the image */
+    max-height: 40%;
+    /* set a max height for the image */
+    margin-bottom: 8px;
+    /* add some margin between the image and title */
+}
+
+.center-text-container {
+    display: flex;
+    /* make the container a flex container */
+    flex-direction: column;
+    /* put the title and text under each other */
+    align-items: center;
+    /* center the title and text horizontally */
+}
+
+.center-text {
+    text-align: center;
+    /* center the text */
+    margin: 8px 0;
+    /* add some margin to the top and bottom of the text */
+}
+
+.form-container {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+}
+
+.form-title {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+table {
+    margin: auto;
+    text-align: left;
+    width: 100%;
+}
+
+.label-cell {
+    width: 30%;
+    font-size: 20px;
+}
+
+.input-cell {
+    width: 70%;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 2px solid var(--accent-color);
+    font-size: 18px;
+}
+
+.button-container {
+    margin-top: 20px;
+}
+
+.submit-button {
+    width: 100%;
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+img {
+    border-radius: 20px;
+}
+
+
+/* Add hover effect */
+
+.navbar a:hover {
+    background-color: darken(var(--accent-color), 10%);
+    /* make the background color slightly darker on hover */
+}
+
+.navbar a {
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+}
