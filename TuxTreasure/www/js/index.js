@@ -10,19 +10,36 @@ function onDeviceReady() {
             "tagNames": ["Groceries", "Petrol", "Gym"]
         });
     } else {
-        printLocalStorageKeys();
         deleteFromLocalStorage("debug");
-        console.log("-----------------------");
-        printLocalStorageKeys();
     }
+
+
+    //Dispatching the different functions to call:
+
+    const pageName = window.location.pathname.split("/").pop();
+    if (pageName == "logExpenditure.html") {
+        //adding the different elements in the select options
+        insertOptions(getAllTagDepenseValues());
+    }
+
 }
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('debug').addEventListener('click', debug);
+    document.getElementById('add-tag').addEventListener('click', addTagToDB);
 });
 
-
+//--------------------------building page util functions-------------------------------
+function insertOptions(stringsArray) {
+    var select = document.getElementById("tag");
+    select.innerHTML = ""
+    for (var i = 0; i < stringsArray.length; i++) {
+        var option = document.createElement("option");
+        option.text = stringsArray[i];
+        select.add(option);
+    }
+    // document.body.appendChild(select);
+}
 
 // --------------------------database util functions----------------------------------------
 function addElementToTagDepense(elementToAdd) {
@@ -100,4 +117,18 @@ function printLocalStorageKeys() {
 
 function deleteFromLocalStorage(key) {
     localStorage.removeItem(key);
+}
+
+function addTagToDB() {
+    let tagNameElement = document.getElementById("tagName");
+    if (tagNameElement.value == "") {
+        alert("Please fill in the name you wish to give your new tag.")
+    } else {
+        addElementToTagDepense(tagNameElement.value);
+        alert('Your tag was added !');
+        insertOptions(getAllTagDepenseValues());
+        tagNameElement.value = "";
+
+    }
+
 }
