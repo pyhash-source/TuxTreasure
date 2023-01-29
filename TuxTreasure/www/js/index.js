@@ -4,7 +4,6 @@ document.addEventListener('deviceready', onDeviceReady, false);
 function onDeviceReady() {
     document.getElementById('deviceready').classList.add('ready');
     if (localStorage.length == 0) {
-        alert('Populating the local storage with default tags:');
         storeObjectInLocalStorage(incrementLocalStorageKey(), {
             "type": "tagDepense",
             "tagNames": ["Groceries", "Petrol", "Gym"]
@@ -103,8 +102,6 @@ function incrementLocalStorageKey() {
                 highestKey = keyAsNumber;
             }
         }
-        alert("the increment local storage now returned: ");
-        alert(String(highestKey + 1));
         return String(highestKey + 1);
     }
 }
