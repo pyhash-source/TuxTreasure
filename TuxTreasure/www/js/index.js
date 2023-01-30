@@ -140,13 +140,21 @@ function addExpenditure() {
     let selectElement = document.getElementById("tag");
     let selectElementValue = selectElement.options[selectElement.selectedIndex].value;
     let montant = document.getElementById("amount").value;
+    let date = new Date();
+    let dateString = date.toLocaleDateString("fr-FR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+    });
+    console.log(dateString); // Output: 28/01/2023
     if (montant == "") {
         alert("please enter the amount of money you spent !")
     } else {
         let depenseObject = {
             "type": "depense",
             "value": montant,
-            "tag": selectElementValue
+            "tag": selectElementValue,
+            "date": dateString
         };
 
         storeObjectInLocalStorage(incrementLocalStorageKey(), depenseObject);
@@ -164,7 +172,8 @@ function retrieveAllDepenses() {
         if (value.type === "depense") {
             let depense = {
                 value: value.value,
-                tag: value.tag
+                tag: value.tag,
+                date: value.date
             };
             depenses.push(depense);
         }
@@ -180,7 +189,7 @@ function displayAllDepenses() {
     for (let i = 0; i < depenses.length; i++) {
         let depense = depenses[i];
         let depenseElement = document.createElement("p");
-        depenseElement.innerHTML = "Value: " + depense.value + " | Tag: " + depense.tag;
+        depenseElement.innerHTML = "Value: " + depense.value + " | Tag: " + depense.tag + " | Date: " + depense.date;
         depensesContainer.appendChild(depenseElement);
     }
 }

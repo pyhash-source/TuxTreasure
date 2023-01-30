@@ -1,5 +1,6 @@
 {
     "type": "depense",
-    "value": "123,00",
-    "tag": "tag"
+    "value": "montant",
+    "tag": "selectElementValue",
+    "date": "dateString"
 }
