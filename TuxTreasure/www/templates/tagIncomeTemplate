@@ -1,0 +1,4 @@
+{
+    "type": "tagIncome",
+    "tagNames": ["Wage", "Gifts", "State"]
+}

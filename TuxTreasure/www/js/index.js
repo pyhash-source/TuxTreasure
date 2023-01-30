@@ -8,6 +8,11 @@ function onDeviceReady() {
             "type": "tagDepense",
             "tagNames": ["Groceries", "Petrol", "Gym"]
         });
+
+        storeObjectInLocalStorage(incrementLocalStorageKey(), {
+            "type": "tagIncome",
+            "tagNames": ["Wage", "Gifts", "State"]
+        });
     } else {
         //do not remove or else very much broken
         deleteFromLocalStorage("debug");
@@ -15,14 +20,14 @@ function onDeviceReady() {
 
 
     //Dispatching the different functions to call:
-
     const pageName = window.location.pathname.split("/").pop();
     if (pageName == "logExpenditure.html") {
         //adding the different elements in the select options
-        insertOptions(getAllTagDepenseValues());
+        insertOptions(getAllTagDepenseValues(), "tag");
     } else if (pageName == 'analysis.html') {
         displayAllDepenses();
-        printLocalStorageKeys();
+    } else if (pageName == 'logIncome.html') {
+        insertOptions(getAllTagIncomeValues(), "tag-income")
     }
 
 }
@@ -32,12 +37,17 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('add-tag').addEventListener('click', addTagToDB);
 });
 
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('add-tag-income').addEventListener('click', addTagIncomeToDB);
+});
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('log-expenditure').addEventListener('click', addExpenditure);
 });
 //--------------------------building page util functions-------------------------------
-function insertOptions(stringsArray) {
-    var select = document.getElementById("tag");
+function insertOptions(stringsArray, tag) {
+    console.log(stringsArray);
+    var select = document.getElementById(tag);
     select.innerHTML = ""
     for (var i = 0; i < stringsArray.length; i++) {
         var option = document.createElement("option");
@@ -67,11 +77,40 @@ function addElementToTagDepense(elementToAdd) {
     }
 }
 
+function addElementToTagIncome(elementToAdd) {
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        // if(key != 'debug') {
+
+        // }
+        let value = JSON.parse(localStorage.getItem(key));
+        if (value.type === "tagIncome") {
+            if (value.tagNames.includes(elementToAdd)) {
+                alert(elementToAdd + " tag already exists ! No need to add it.");
+                return;
+            }
+            value.tagNames.push(elementToAdd);
+            localStorage.setItem(key, JSON.stringify(value));
+            break;
+        }
+    }
+}
+
 function getAllTagDepenseValues() {
     for (let i = 0; i < localStorage.length; i++) {
         let key = localStorage.key(i);
         let value = JSON.parse(localStorage.getItem(key));
         if (value.type === "tagDepense") {
+            return value.tagNames
+        }
+    }
+}
+
+function getAllTagIncomeValues() {
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        let value = JSON.parse(localStorage.getItem(key));
+        if (value.type === "tagIncome") {
             return value.tagNames
         }
     }
@@ -131,7 +170,19 @@ function addTagToDB() {
     } else {
         addElementToTagDepense(tagNameElement.value);
         alert('Your tag was added !');
-        insertOptions(getAllTagDepenseValues());
+        insertOptions(getAllTagDepenseValues(), "tag");
+        tagNameElement.value = "";
+    }
+}
+
+function addTagIncomeToDB() {
+    let tagNameElement = document.getElementById("income-tagName");
+    if (tagNameElement.value == "") {
+        alert("Please fill in the name you wish to give your new tag.")
+    } else {
+        addElementToTagIncome(tagNameElement.value);
+        alert('Your tag was added !');
+        insertOptions(getAllTagIncomeValues(), "tag-income");
         tagNameElement.value = "";
     }
 }

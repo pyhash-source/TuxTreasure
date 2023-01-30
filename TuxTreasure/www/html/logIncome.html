@@ -18,23 +18,23 @@
         <div id="deviceready" class="blink">
             <div class="content">
                 <div class="form-container">
-                    <h1 class="form-title">Expenditure Form</h1>
+                    <h1 class="form-title">Income Form</h1>
 
                     <table>
                         <tr>
-                            <td class="label-cell"><label for="amount">Amount spent:</label></td>
-                            <td class="input-cell"><input type="number" id="amount" name="amount" placeholder="42.00"></td>
+                            <td class="label-cell"><label for="amount">Amount recieved:</label></td>
+                            <td class="input-cell"><input type="number" id="income-amount" name="amount" placeholder="1200.00"></td>
                         </tr>
                         <tr>
-                            <td class="label-cell"><label for="tag">What for:</label></td>
+                            <td class="label-cell"><label for="tag">from:</label></td>
                             <td class="input-cell">
-                                <select id="tag" name="tag">                                
+                                <select id="tag-income" name="tag">                                
                                 </select>
                             </td>
                         </tr>
                     </table>
                     <div class="button-container">
-                        <button class="submit-button" id="log-expenditure">Log Expenditure</button>
+                        <button class="submit-button" id="log-income">Log that money !</button>
                     </div>
 
                 </div><br><br>
@@ -42,8 +42,8 @@
                 <div class="form-container">
                     <table>
                         <tr>
-                            <td class="input-cell"><input type="text" id="tagName" placeholder="eg. Petrol, Ketamine..."></td>
-                            <td class="label-cell"><button class="submit-button" id="add-tag">Add Tag</button></td>
+                            <td class="input-cell"><input type="text" id="income-tagName" placeholder="eg. Tax Fraud, arson..."></td>
+                            <td class="label-cell"><button class="submit-button" id="add-tag-income">Add Tag</button></td>
 
                         </tr>
                     </table>
