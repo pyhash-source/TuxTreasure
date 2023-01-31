@@ -26,6 +26,7 @@ function onDeviceReady() {
         insertOptions(getAllTagDepenseValues(), "tag");
     } else if (pageName == 'analysis.html') {
         displayAllDepenses();
+        displayAllIncome();
     } else if (pageName == 'logIncome.html') {
         insertOptions(getAllTagIncomeValues(), "tag-income")
     }
@@ -43,6 +44,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('log-expenditure').addEventListener('click', addExpenditure);
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('log-income').addEventListener('click', addIncome);
 });
 //--------------------------building page util functions-------------------------------
 function insertOptions(stringsArray, tag) {
@@ -215,6 +220,38 @@ function addExpenditure() {
 
 }
 
+
+function addIncome() {
+    let selectElement = document.getElementById("tag-income");
+    let selectElementValue = selectElement.options[selectElement.selectedIndex].value;
+    let montant = document.getElementById("income-amount").value;
+    let date = new Date();
+    let dateString = date.toLocaleDateString("fr-FR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+    });
+    console.log(dateString); // Output: 28/01/2023
+    if (montant == "") {
+        alert("please enter the amount of money you spent !")
+    } else {
+        let incomeObject = {
+            "type": "income",
+            "value": montant,
+            "tag": selectElementValue,
+            "date": dateString
+        };
+
+        storeObjectInLocalStorage(incrementLocalStorageKey(), incomeObject);
+        document.getElementById("income-amount").value = "";
+        alert("Successfully logged expenditure !")
+        console.log(incomeObject);
+    }
+
+}
+
+
+
 function retrieveAllDepenses() {
     let depenses = [];
     for (let i = 0; i < localStorage.length; i++) {
@@ -232,6 +269,23 @@ function retrieveAllDepenses() {
     return depenses;
 }
 
+function retrieveAllIncome() {
+    let income = [];
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        let value = JSON.parse(localStorage.getItem(key));
+        if (value.type === "income") {
+            let depense = {
+                value: value.value,
+                tag: value.tag,
+                date: value.date
+            };
+            income.push(depense);
+        }
+    }
+    return income;
+}
+
 function displayAllDepenses() {
     let depenses = retrieveAllDepenses();
     let depensesContainer = document.getElementById("expense-list");
@@ -242,5 +296,18 @@ function displayAllDepenses() {
         let depenseElement = document.createElement("p");
         depenseElement.innerHTML = "Value: " + depense.value + " | Tag: " + depense.tag + " | Date: " + depense.date;
         depensesContainer.appendChild(depenseElement);
+    }
+}
+
+function displayAllIncome() {
+    let incomes = retrieveAllIncome();
+    let incomeContainer = document.getElementById("income-list");
+    incomeContainer.innerHTML = "";
+
+    for (let i = 0; i < incomes.length; i++) {
+        let income = incomes[i];
+        let incomeElement = document.createElement("p");
+        incomeElement.innerHTML = "(Income) Value: " + income.value + " | (Income) Tag: " + income.tag + " | (Income) Date: " + income.date;
+        incomeContainer.appendChild(incomeElement);
     }
 }
