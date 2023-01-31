@@ -2,7 +2,6 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
 
 function onDeviceReady() {
-    alert("coucu je suis bien dans le bon fichier");
     document.getElementById('deviceready').classList.add('ready');
     if (localStorage.length == 0) {
         storeObjectInLocalStorage(incrementLocalStorageKey(), {

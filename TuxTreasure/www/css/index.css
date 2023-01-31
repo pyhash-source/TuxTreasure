@@ -191,9 +191,10 @@ img {
     justify-content: center;
 }
 
-.card-content {
+
+/* .card-content {
     padding: 10px;
-}
+} */
 
 .card-container {
     display: flex;
