@@ -31,5 +31,8 @@
       },
       "cordova-plugin-android-permissions": {}
     }
+  },
+  "dependencies": {
+    "c3": "^0.7.20"
   }
 }
