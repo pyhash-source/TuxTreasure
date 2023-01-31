@@ -4,13 +4,15 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; script-src-elem 'self' https://d3js.org https://cdnjs.cloudflare.com 'unsafe-inline';">
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
     <meta name="color-scheme" content="light dark">
     <link rel="stylesheet" href="../css/index.css">
-    <title>Hello World</title>
+    <link href="../css/c3.min.css" rel="stylesheet">
+
+    <title>TuxTreasure - Analysis</title>
 </head>
 
 <body>
@@ -23,9 +25,8 @@
                             <h3>Card Title</h3>
                         </div>
 
-                        <div class="card-content">
+                        <div class="card-content" id="chart1">
                             <!-- Content here, for example a C3js chart or a table -->
-                            Here is going to be the chart / table
                         </div>
                     </div>
 
@@ -69,7 +70,10 @@
         </div>
     </div>
     <script src="../cordova.js"></script>
-    <script src="../js/index.js"></script>
+    <!-- <script src="../js/index.js"></script> -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="../js/c3.js"></script>
+    <script src="../js/analysis.js"></script>
 </body>
 
 </html>
