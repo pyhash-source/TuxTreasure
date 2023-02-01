@@ -191,6 +191,13 @@ img {
     justify-content: center;
 }
 
+.center-text {
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 
 /* .card-content {
     padding: 10px;

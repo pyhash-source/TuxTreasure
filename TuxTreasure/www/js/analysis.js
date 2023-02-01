@@ -88,6 +88,20 @@ function onDeviceReady() {
         }
     });
 
+    var chart = c3.generate({
+        bindto: '#total-income-per-tag',
+        data: {
+            columns: buildTagExpensesSumArray(),
+            type: 'donut',
+            onclick: function(d, i) { console.log("onclick", d, i); },
+            onmouseover: function(d, i) { console.log("onmouseover", d, i); },
+            onmouseout: function(d, i) { console.log("onmouseout", d, i); }
+        },
+        donut: {
+            title: "% / tag "
+        }
+    });
+
 
 }
 //----------------------------listeners----------------------------
@@ -261,4 +275,33 @@ function retreieveTotalIncomeMois() {
     }
 
     return totalDepenses;
+}
+
+function buildTagExpensesSumArray() {
+    let currentMonth = new Date().getMonth();
+    let currentYear = new Date().getFullYear();
+    let tagExpenses = {};
+
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        let value = JSON.parse(localStorage.getItem(key));
+        if (value.type === "depense") {
+            let date = new Date(value.date.split("/").reverse().join("-"));
+            let expenseMonth = date.getMonth();
+            let expenseYear = date.getFullYear();
+            if (expenseMonth === currentMonth && expenseYear === currentYear) {
+                if (!tagExpenses[value.tag]) {
+                    tagExpenses[value.tag] = 0;
+                }
+                tagExpenses[value.tag] += parseInt(value.value);
+            }
+        }
+    }
+
+    let expensesArray = [];
+    for (let tag in tagExpenses) {
+        expensesArray.push([tag, tagExpenses[tag]]);
+    }
+
+    return expensesArray;
 }
