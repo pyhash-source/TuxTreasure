@@ -19,12 +19,72 @@ function onDeviceReady() {
     }
 
     var chart = c3.generate({
-        bindto: '#chart1',
+        bindto: '#total-income-spent',
         data: {
             columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 50, 20, 10, 40, 15, 25]
-            ]
+                ['Income spent', retrieveTotalDepensesMois()]
+            ],
+            type: 'gauge',
+            color: {
+                pattern: ['#FFFFFF'] // set the color to black using hex code
+            }
+        },
+        gauge: {
+            label: {
+                format: function(value, ratio) {
+                    if (value == 0) {
+                        return '0'
+                    } else {
+                        return Math.round(ratio * 100) + '%';
+                    }
+                },
+                show: true
+            },
+            min: 0,
+            max: retreieveTotalIncomeMois(),
+            width: 50
+        },
+        color: {
+            pattern: [
+                '#13FF00',
+                '#61FF00',
+                '#A2FF00',
+                '#CDFF00',
+                '#F3FF00',
+                '#FFF300',
+                '#FFD800',
+                '#FFB900',
+                '#FF8700',
+                '#FF7000',
+                '#FF6100',
+                '#FF5900',
+                '#FF3200',
+                '#FF2A00',
+                '#FF0000'
+            ],
+            threshold: {
+                values: [
+                    0,
+                    retreieveTotalIncomeMois() / 14,
+                    2 * retreieveTotalIncomeMois() / 14,
+                    3 * retreieveTotalIncomeMois() / 14,
+                    4 * retreieveTotalIncomeMois() / 14,
+                    5 * retreieveTotalIncomeMois() / 14,
+                    6 * retreieveTotalIncomeMois() / 14,
+                    7 * retreieveTotalIncomeMois() / 14,
+                    8 * retreieveTotalIncomeMois() / 14,
+                    9 * retreieveTotalIncomeMois() / 14,
+                    10 * retreieveTotalIncomeMois() / 14,
+                    11 * retreieveTotalIncomeMois() / 14,
+                    12 * retreieveTotalIncomeMois() / 14,
+                    13 * retreieveTotalIncomeMois() / 14,
+                    retreieveTotalIncomeMois()
+                ]
+            }
+
+        },
+        size: {
+            height: 180
         }
     });
 
@@ -148,4 +208,57 @@ function retrieveAllIncome() {
         }
     }
     return income;
+}
+
+function retrieveTotalDepensesMois() {
+    let depenses = [];
+    let currentDate = new Date();
+    let currentMonth = currentDate.getMonth() + 1;
+    let currentYear = currentDate.getFullYear();
+
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        let value = JSON.parse(localStorage.getItem(key));
+        if (value.type === "depense") {
+            let dateParts = value.date.split('/');
+            let date = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);
+            if (date.getMonth() + 1 === currentMonth && date.getFullYear() === currentYear) {
+                depenses.push(value.value);
+            }
+        }
+    }
+
+    let totalDepenses = 0;
+    for (let i = 0; i < depenses.length; i++) {
+        totalDepenses += parseInt(depenses[i]);
+    }
+
+    return totalDepenses;
+}
+
+
+function retreieveTotalIncomeMois() {
+    let depenses = [];
+    let currentDate = new Date();
+    let currentMonth = currentDate.getMonth() + 1;
+    let currentYear = currentDate.getFullYear();
+
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        let value = JSON.parse(localStorage.getItem(key));
+        if (value.type === "income") {
+            let dateParts = value.date.split('/');
+            let date = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);
+            if (date.getMonth() + 1 === currentMonth && date.getFullYear() === currentYear) {
+                depenses.push(value.value);
+            }
+        }
+    }
+
+    let totalDepenses = 0;
+    for (let i = 0; i < depenses.length; i++) {
+        totalDepenses += parseInt(depenses[i]);
+    }
+
+    return totalDepenses;
 }
