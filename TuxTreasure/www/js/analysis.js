@@ -98,8 +98,8 @@ function onDeviceReady() {
             onmouseout: function(d, i) { console.log("onmouseout", d, i); }
         },
         donut: {
-            title: "% / tag "
-        }
+            title: "% / tag ",
+        },
     });
 
 
@@ -305,3 +305,14 @@ function buildTagExpensesSumArray() {
 
     return expensesArray;
 }
+
+const originalButton = document.getElementById("originalButton");
+const newButtonsContainer = document.getElementById("newButtonsContainer");
+
+originalButton.addEventListener("click", function() {
+    if (newButtonsContainer.style.display === "none") {
+        newButtonsContainer.style.display = "flex";
+    } else {
+        newButtonsContainer.style.display = "none";
+    }
+});

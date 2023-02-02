@@ -216,3 +216,47 @@ a {
     text-decoration: none;
     color: inherit;
 }
+
+#originalButton {
+    color: white;
+    padding: 8px 16px;
+    /* add some padding to the links */
+    text-decoration: none;
+    /* remove the underline */
+    font-weight: bold;
+    /* make the text bold */
+    border-radius: 4px;
+    /* add rounded corners */
+    background-color: var(--accent-color);
+    /* change the background color to the accent color */
+    transition: background-color 0.2s ease-in;
+    border: none;
+    /* add a transition for the background color */
+}
+
+#newButtonsContainer {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+}
+
+.newButton {
+    color: white;
+    padding: 8px 16px;
+    /* add some padding to the links */
+    text-decoration: none;
+    /* remove the underline */
+    font-weight: bold;
+    /* make the text bold */
+    border-radius: 4px;
+    /* add rounded corners */
+    background-color: var(--accent-color);
+    /* change the background color to the accent color */
+    transition: background-color 0.2s ease-in;
+    border: none;
+    margin-right: 2vw;
+    margin-left: 2vw;
+}

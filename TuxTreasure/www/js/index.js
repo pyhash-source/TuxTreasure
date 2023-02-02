@@ -315,3 +315,14 @@ function displayAllIncome() {
         incomeContainer.appendChild(incomeElement);
     }
 }
+
+const originalButton = document.getElementById("originalButton");
+const newButtonsContainer = document.getElementById("newButtonsContainer");
+
+originalButton.addEventListener("click", function() {
+    if (newButtonsContainer.style.display === "none") {
+        newButtonsContainer.style.display = "flex";
+    } else {
+        newButtonsContainer.style.display = "none";
+    }
+});
