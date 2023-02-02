@@ -174,7 +174,7 @@ function addTagToDB() {
     if (tagNameElement.value == "") {
         alert("Please fill in the name you wish to give your new tag.")
     } else {
-        addElementToTagDepense(tagNameElement.value);
+        addElementToTagDepense(tagNameElement.value.trim());
         alert('Your tag was added !');
         insertOptions(getAllTagDepenseValues(), "tag");
         tagNameElement.value = "";
@@ -187,7 +187,7 @@ function addTagIncomeToDB() {
     if (tagNameElement.value == "") {
         alert("Please fill in the name you wish to give your new tag.")
     } else {
-        addElementToTagIncome(tagNameElement.value);
+        addElementToTagIncome(tagNameElement.value.trim());
         alert('Your tag was added !');
         insertOptions(getAllTagIncomeValues(), "tag-income");
         tagNameElement.value = "";
