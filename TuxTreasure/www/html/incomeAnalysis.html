@@ -19,24 +19,37 @@
     <div class="app">
         <div id="deviceready" class="blink">
             <div class="content">
-                <h1 class="center-text">$ out dashboard</h1>
+                <h1 class="center-text">$ in dashboard</h1>
                 <div class="card-container">
                     <div class="card">
                         <div class="card-title">
-                            <h3>Part of Total income spent</h3>
+                            <h3>Sum of the income for current month</h3>
                         </div>
-                        <div id="total-income-spent">
-                        </div>
+                        <h2 id="sumIncome" class="center-text"></h2>
                     </div>
 
                     <div class="card">
                         <div class="card-title">
-                            <h3>% of expenses per tag</h3>
+                            <h3>% of income per tag</h3>
                         </div>
                         <p class="center-text">For the current month</p>
 
                         <div class="card-content">
                             <div id="total-income-per-tag">
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="card">
+                        <div class="card-title">
+                            <h3>Evolution of all source of income</h3>
+                        </div>
+                        <p class="center-text">From first log to last log</p>
+
+                        <div class="card-content">
+                            <div id="evolution-income-per-tag">
                             </div>
 
                         </div>
@@ -65,7 +78,7 @@
     <!-- <script src="../js/index.js"></script> -->
     <script src="../js/d3.min.js"></script>
     <script src="../js/c3.js"></script>
-    <script src="../js/analysis.js"></script>
+    <script src="../js/incomeAnalysis.js"></script>
 </body>
 
 </html>

@@ -18,80 +18,14 @@ function onDeviceReady() {
         deleteFromLocalStorage("debug");
     }
 
-    var chart = c3.generate({
-        bindto: '#total-income-spent',
-        data: {
-            columns: [
-                ['Income spent', retrieveTotalDepensesMois()]
-            ],
-            type: 'gauge',
-            color: {
-                pattern: ['#FFFFFF'] // set the color to black using hex code
-            }
-        },
-        gauge: {
-            label: {
-                format: function(value, ratio) {
-                    if (value == 0) {
-                        return '0'
-                    } else {
-                        return Math.round(ratio * 100) + '%';
-                    }
-                },
-                show: true
-            },
-            min: 0,
-            max: retreieveTotalIncomeMois(),
-            width: 50
-        },
-        color: {
-            pattern: [
-                '#13FF00',
-                '#61FF00',
-                '#A2FF00',
-                '#CDFF00',
-                '#F3FF00',
-                '#FFF300',
-                '#FFD800',
-                '#FFB900',
-                '#FF8700',
-                '#FF7000',
-                '#FF6100',
-                '#FF5900',
-                '#FF3200',
-                '#FF2A00',
-                '#FF0000'
-            ],
-            threshold: {
-                values: [
-                    0,
-                    retreieveTotalIncomeMois() / 14,
-                    2 * retreieveTotalIncomeMois() / 14,
-                    3 * retreieveTotalIncomeMois() / 14,
-                    4 * retreieveTotalIncomeMois() / 14,
-                    5 * retreieveTotalIncomeMois() / 14,
-                    6 * retreieveTotalIncomeMois() / 14,
-                    7 * retreieveTotalIncomeMois() / 14,
-                    8 * retreieveTotalIncomeMois() / 14,
-                    9 * retreieveTotalIncomeMois() / 14,
-                    10 * retreieveTotalIncomeMois() / 14,
-                    11 * retreieveTotalIncomeMois() / 14,
-                    12 * retreieveTotalIncomeMois() / 14,
-                    13 * retreieveTotalIncomeMois() / 14,
-                    retreieveTotalIncomeMois()
-                ]
-            }
+    //card 1
+    printTotalIncomeMois()
 
-        },
-        size: {
-            height: 180
-        }
-    });
-
+    //card 2
     var chart = c3.generate({
         bindto: '#total-income-per-tag',
         data: {
-            columns: buildTagExpensesSumArray(),
+            columns: buildTagIncomeSumArray(),
             type: 'donut',
             onclick: function(d, i) { console.log("onclick", d, i); },
             onmouseover: function(d, i) { console.log("onmouseover", d, i); },
@@ -100,7 +34,16 @@ function onDeviceReady() {
         donut: {
             title: "% / tag ",
         },
+        tooltip: {
+            format: {
+                value: function(value, ratio, id, index) {
+                    return value + "€";
+                }
+            }
+        }
     });
+
+
 
 
 }
@@ -182,9 +125,6 @@ function printLocalStorageKeys() {
 function deleteFromLocalStorage(key) {
     localStorage.removeItem(key);
 }
-
-
-
 
 
 
@@ -318,3 +258,42 @@ originalButton.addEventListener("click", function() {
         originalButton.innerText = "Analysis !"
     }
 });
+
+
+
+
+function printTotalIncomeMois() {
+    document.getElementById("sumIncome").innerHTML = retreieveTotalIncomeMois() + " €";
+}
+
+//weird names because copy paste, will fix later
+//to be 100% honest probably will not
+//sigh
+function buildTagIncomeSumArray() {
+    let currentMonth = new Date().getMonth();
+    let currentYear = new Date().getFullYear();
+    let tagExpenses = {};
+
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        let value = JSON.parse(localStorage.getItem(key));
+        if (value.type === "income") {
+            let date = new Date(value.date.split("/").reverse().join("-"));
+            let expenseMonth = date.getMonth();
+            let expenseYear = date.getFullYear();
+            if (expenseMonth === currentMonth && expenseYear === currentYear) {
+                if (!tagExpenses[value.tag]) {
+                    tagExpenses[value.tag] = 0;
+                }
+                tagExpenses[value.tag] += parseInt(value.value);
+            }
+        }
+    }
+
+    let expensesArray = [];
+    for (let tag in tagExpenses) {
+        expensesArray.push([tag, tagExpenses[tag]]);
+    }
+
+    return expensesArray;
+}

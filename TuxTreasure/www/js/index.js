@@ -322,7 +322,9 @@ const newButtonsContainer = document.getElementById("newButtonsContainer");
 originalButton.addEventListener("click", function() {
     if (newButtonsContainer.style.display === "none") {
         newButtonsContainer.style.display = "flex";
+        originalButton.innerText = "close me"
     } else {
         newButtonsContainer.style.display = "none";
+        originalButton.innerText = "Analysis !"
     }
 });
