@@ -169,7 +169,7 @@ function deleteFromLocalStorage(key) {
 }
 
 function addTagToDB() {
-    navigator.vibrate(1000)
+    navigator.vibrate(100)
     let tagNameElement = document.getElementById("tagName");
     if (tagNameElement.value == "") {
         alert("Please fill in the name you wish to give your new tag.")
@@ -182,7 +182,7 @@ function addTagToDB() {
 }
 
 function addTagIncomeToDB() {
-    navigator.vibrate(1000)
+    navigator.vibrate(100)
     let tagNameElement = document.getElementById("income-tagName");
     if (tagNameElement.value == "") {
         alert("Please fill in the name you wish to give your new tag.")
@@ -195,7 +195,7 @@ function addTagIncomeToDB() {
 }
 
 function addExpenditure() {
-    navigator.vibrate(1000);
+    navigator.vibrate(100);
     let selectElement = document.getElementById("tag");
     let selectElementValue = selectElement.options[selectElement.selectedIndex].value;
     let montant = document.getElementById("amount").value;
@@ -225,7 +225,7 @@ function addExpenditure() {
 
 
 function addIncome() {
-    navigator.vibrate(1000);
+    navigator.vibrate(100);
     let selectElement = document.getElementById("tag-income");
     let selectElementValue = selectElement.options[selectElement.selectedIndex].value;
     let montant = document.getElementById("income-amount").value;
