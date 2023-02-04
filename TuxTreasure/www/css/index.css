@@ -283,4 +283,5 @@ a {
 .card-manage {
     border: 2px solid var(--secondary-color);
     border-radius: 10px;
+    margin-bottom: 10vh;
 }
