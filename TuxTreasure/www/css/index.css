@@ -260,3 +260,29 @@ a {
     margin-right: 2vw;
     margin-left: 2vw;
 }
+
+.card-tag-overflow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* you can change this value to any desired fixed height */
+    border: 1px solid var(--secondary-color);
+    border-radius: 5px;
+    flex-direction: column;
+}
+
+.card-manage-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5vw;
+    margin-right: 5vw;
+}
+
+.card-manage {
+    border: 2px solid var(--secondary-color);
+    border-radius: 10px;
+    margin-left: 50px;
+    margin-right: 50px;
+}

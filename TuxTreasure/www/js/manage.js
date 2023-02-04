@@ -19,18 +19,46 @@ function onDeviceReady() {
     }
 
     //goto
-    displayTagDepense();
+    displayTagDepenseInDiv();
+
+
 
 
 
 }
 //----------------------------listeners----------------------------
 
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('beGoneTagExpediture').addEventListener('click', removeElementFromTagDepense);
+});
+
 
 //--------------------------building page util functions-------------------------------
 
 
 // --------------------------database util functions----------------------------------------
+
+function removeElementFromTagDepense() {
+    let elementToRemove = document.getElementById("deleteTagExpenditure").value;
+    console.log(elementToRemove);
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        let value = JSON.parse(localStorage.getItem(key));
+        if (value.type === "tagDepense") {
+            let index = value.tagNames.indexOf(elementToRemove);
+            if (index === -1) {
+                alert(elementToRemove + " tag doesn't exist ! No need to remove it.");
+                return;
+            }
+            value.tagNames.splice(index, 1);
+            localStorage.setItem(key, JSON.stringify(value));
+            displayTagDepenseInDiv();
+            document.getElementById("deleteTagExpenditure").value = "";
+
+            break;
+        }
+    }
+}
 
 
 
@@ -39,7 +67,7 @@ function onDeviceReady() {
 function getAllTagDepenseValues() {
     for (let i = 0; i < localStorage.length; i++) {
         let key = localStorage.key(i);
-        let value = JSON.parse(localStorage.getItem(key));
+        let value = JSON.parse(localStorage.getItem(key))
         if (value.type === "tagDepense") {
             return value.tagNames
         }
@@ -54,6 +82,56 @@ function getAllTagIncomeValues() {
             return value.tagNames
         }
     }
+}
+
+
+function displayTagDepenseInDiv() {
+    let tags = getAllTagDepenseValues();
+    document.getElementById("div-list-tag-depense").innerHTML = "";
+    let div = document.getElementById("div-list-tag-depense");
+
+    // Create a table element
+    const table = document.createElement("table");
+    table.style.width = "100%";
+
+    // Create a table row element
+    let tableRow = document.createElement("tr");
+
+    // Loop through the tags
+    for (let i = 0; i < tags.length; i++) {
+        const tableData = document.createElement("td");
+        tableData.style.border = "2px solid rgb(137, 137, 137)";
+        tableData.style.transition = "transform 0.2s";
+        tableData.style.cursor = "pointer";
+        tableData.style.borderRadius = "4px";
+        tableData.style.paddingLeft = "20px"
+        tableData.style.paddingRight = "20px"
+
+        const element = document.createElement("p");
+        element.innerHTML = tags[i];
+
+        element.addEventListener("mouseover", function() {
+            element.style.transform = "translateX(15px)";
+        });
+        element.addEventListener("mouseout", function() {
+            element.style.transform = "translateX(0)";
+        });
+
+        tableData.appendChild(element);
+        tableRow.appendChild(tableData);
+
+        // Add a new row after every third tag
+        if (i % 3 === 2) {
+            table.appendChild(tableRow);
+            tableRow = document.createElement("tr");
+        }
+    }
+
+    // Append the last row
+    table.appendChild(tableRow);
+
+    div.appendChild(table);
+
 }
 
 
@@ -85,13 +163,7 @@ function incrementLocalStorageKey() {
     }
 }
 
-function printLocalStorage() {
-    for (let i = 0; i < localStorage.length; i++) {
-        let key = localStorage.key(i);
-        let value = localStorage.getItem(key);
-        console.log(key + ": " + value);
-    }
-}
+
 
 function printLocalStorageKeys() {
     for (let i = 0; i < localStorage.length; i++) {
